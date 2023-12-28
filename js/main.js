@@ -1,4 +1,5 @@
 const formCadastro = document.getElementById("formCadastro");
+const formLogin = document.getElementById("formLogin")
 
 formCadastro.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -18,6 +19,17 @@ formCadastro.addEventListener("submit", (e) => {
 
   console.log("enviou!" + JSON.stringify(data));
 });
+
+formLogin.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const username = document.getElementById("usernameLogin").value;
+  const senha = document.getElementById("senhaLogin").value;
+
+  const data = new FormData(formLogin);
+  console.log(data);
+})
+
 
 async function postJSON(data, url) {
   try {
