@@ -6,23 +6,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <title>Document</title>
-    <script defer src="js/main.js"></script>
+    <link rel="shortcut icon" href="img/icon.png" type="image/x-icon">
+    <script defer type="module" src="js/main.js"></script>
 </head>
 
 <body>  
-<h1>Trelloso Client</h1>
-</body>
-    <form id="formCadastro">
-        <input type="text" id="name" placeholder="Insira seu nome" required>
-        <input type="text" id="username" placeholder="Insira seu nome de usuário" required>
-        <input type="text" id="avatar" placeholder="Insira uma URL">
-        <input type="password" id="senha" placeholder="Insira sua senha" required>
-        <button type="submit" id="btnCadastro">Cadastrar</button>
-    </form>
+    <h1>Trelloso Client</h1>
 
-    <form id="formLogin">
-        <input type="text" id="usernameLogin" placeholder="Username" required>
-        <input type="password" id="senhaLogin" placeholder="Senha" required>
-        <button type="submit" id="btnLogin">Entrar</button>
-    </form>
+    <h2>Adaptado do artigo <a href="https://dev.to/eaich/create-an-awesome-js-api-interface-using-fetch-in-less-than-50-lines-3d65">https://dev.to/eaich/create-an-awesome-js-api-interface-using-fetch-in-less-than-50-lines-3d65</a></h2>
+
+    <div id="forms">
+        <fieldset>
+            <legend>Meus Dados</legend>
+            <span id="me"></span>
+        </fieldset>
+
+        <fieldset>
+            <legend>Cadastrar Usuário</legend>
+            <form id="form-create-user" autocomplete="on">
+                <input type="text" name="name" id="new-name" placeholder="Nome">
+                <input type="text" name="username" id="new-username" placeholder="Username">
+                <input type="password" name="password" id="new-password" placeholder="Password">
+                <input type="text" name="avatar" id="new-avatar" placeholder="Avatar URL">
+                <input type="submit" value="Ok">
+                <input type="reset" value="Cancelar">
+            </form>
+        </fieldset>
+
+        <fieldset>
+            <legend>Login</legend>
+            <form id="form-login" autocomplete="on">
+                <input type="text" name="username" id="username">
+                <input type="password" name="password" id="password">
+                <input type="submit" value="Ok">
+                <input type="reset" value="Cancelar">
+            </form>
+        </fieldset>
+
+        <fieldset>
+            <legend>Listar Usuários</legend>
+            <button id="btn-users">Lista Usuários</button>
+            <ul id="list-users"></ul>
+        </fieldset>
+    </div>
+
+</body>
+
 </html>

@@ -1,49 +1,50 @@
-const formCadastro = document.getElementById("formCadastro");
-const formLogin = document.getElementById("formLogin")
+import User from './users.js';
+import Token from './token.js';
 
-formCadastro.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const nome = document.getElementById("name").value;
-  const username = document.getElementById("username").value;
-  const avatar = document.getElementById("avatar").value;
-  const senha = document.getElementById("senha").value;
+let formLogin = document.getElementById("form-login");
+let formCreateUser = document.getElementById("form-create-user");
+let listUsers = document.getElementById("list-users");
+let btnListUsers = document.getElementById("btn-users");
+let spanMe = document.getElementById("me");
 
-  const data = {
-    name: nome,
-    username: username,
-    avatar_url: avatar,
-    password: senha,
-  };
-
-  postJSON(data, "http://192.168.89.186:8087/api/v1/users/");
-
-  console.log("enviou!" + JSON.stringify(data));
+User.me().then(me => {
+  spanMe.innerHTML = JSON.stringify(me);
+}).catch(error => {
+  console.error(error.message);
 });
 
-formLogin.addEventListener("submit", (e) => {
-  e.preventDefault();
+formLogin.addEventListener("submit", (event) => {
+  event.preventDefault();
 
-  const username = document.getElementById("usernameLogin").value;
-  const senha = document.getElementById("senhaLogin").value;
+  let formData = new FormData(formLogin);
+  User.login(formData).then(token => {
+    Token.saveToken(token);
+  });
+});
 
-  const data = new FormData(formLogin);
-  console.log(data);
+btnListUsers.addEventListener("click", (event) => {
+  listUsers.innerHTML = "";
+  User.getAll().then(users=>{
+    for (let user of users) {
+      const li = document.createElement("li");
+      li.innerHTML = user.name;
+      listUsers.appendChild(li);
+    }
+  })
 })
 
+formCreateUser.addEventListener("submit", (event) => {
+  event.preventDefault();
 
-async function postJSON(data, url) {
-  try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+  const name = document.getElementById("new-name").value;
+  const username = document.getElementById("new-username").value;
+  const password = document.getElementById("new-password").value;
+  const avatar = document.getElementById("new-avatar").value;
+  console.log(name, username, password, avatar);
+  User.create(name, username, password, avatar).then(user=>{
+    console.log(user);
+  }).catch(error => {
+    console.log(error.message);
+  });
 
-    const result = await response.json();
-    console.log("Success:", result);
-  } catch (error) {
-    console.error("Error:", error);
-  }
-}
+});

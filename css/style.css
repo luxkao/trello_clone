@@ -1,16 +1,25 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  :root {
-    font-size: 10px;
-  }
-  
-  body {
-    font: 1.5rem 'Open Sans', sans-serif;
-    line-height: 1.5;
-    color: #777;
-  }
-  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  font-size: 10px;
+}
+
+body {
+  font: 1.5rem "Open Sans", sans-serif;
+  line-height: 1.5;
+}
+
+#forms {
+  display: grid;
+  gap: 20px;
+}
+
+fieldset {
+  padding: 20px;
+  margin: 10px;
+}
+
