@@ -1,11 +1,15 @@
 import User from './users.js';
 import Token from './token.js';
+import Show from './show.js';
 
 let formLogin = document.getElementById("form-login");
 let formCreateUser = document.getElementById("form-create-user");
-let listUsers = document.getElementById("list-users");
-let btnListUsers = document.getElementById("btn-users");
 let spanMe = document.getElementById("me");
+let telaLogin = document.getElementById("login");
+let telaHome = document.getElementById("home");
+let telaCadastro = document.getElementById("signup");
+let btnCadastrese = document.getElementById("cadastrese");
+let btnSair = document.getElementById("sair");
 
 User.me().then(me => {
   spanMe.innerHTML = JSON.stringify(me);
@@ -19,19 +23,12 @@ formLogin.addEventListener("submit", (event) => {
   let formData = new FormData(formLogin);
   User.login(formData).then(token => {
     Token.saveToken(token);
-  });
-});
 
-btnListUsers.addEventListener("click", (event) => {
-  listUsers.innerHTML = "";
-  User.getAll().then(users=>{
-    for (let user of users) {
-      const li = document.createElement("li");
-      li.innerHTML = user.name;
-      listUsers.appendChild(li);
-    }
-  })
-})
+    Show.toggle(telaLogin);
+    Show.toggle(telaHome);
+  });
+
+});
 
 formCreateUser.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -42,9 +39,27 @@ formCreateUser.addEventListener("submit", (event) => {
   const avatar = document.getElementById("new-avatar").value;
   console.log(name, username, password, avatar);
   User.create(name, username, password, avatar).then(user=>{
-    console.log(user);
+    console.log(`usuário criado! username:${user.username} senha:${user.password}`);
+
+    Show.toggle(telaCadastro);
+    Show.toggle(telaLogin);
   }).catch(error => {
     console.log(error.message);
   });
 
 });
+
+btnCadastrese.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  Show.toggle(telaLogin);
+  Show.toggle(telaCadastro);
+})
+
+btnSair.addEventListener("click", (e) =>{
+  e.preventDefault();
+
+  localStorage.removeItem("token");
+  Show.toggle(telaHome);
+  Show.toggle(telaLogin);
+})

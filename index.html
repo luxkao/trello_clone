@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <title>Document</title>
-    <link rel="shortcut icon" href="img/icon.png" type="image/x-icon">
+    <title>Trelloso Client</title>
+    <link rel="shortcut icon" href="img/icon.ico" type="image/x-icon">
     <script defer type="module" src="js/main.js"></script>
 </head>
 
@@ -14,38 +14,39 @@
     <h1>Trelloso Client</h1>
     
     <div id="forms">
-        <fieldset>
-            <legend>Meus Dados</legend>
-            <span id="me"></span>
-        </fieldset>
-
-        <fieldset>
+        <fieldset id="signup" class="no-show">
             <legend>Cadastrar Usuário</legend>
             <form id="form-create-user" autocomplete="on">
                 <input type="text" name="name" id="new-name" placeholder="Nome">
                 <input type="text" name="username" id="new-username" placeholder="Username">
                 <input type="password" name="password" id="new-password" placeholder="Password">
                 <input type="text" name="avatar" id="new-avatar" placeholder="Avatar URL">
-                <input type="submit" value="Ok">
+                <input type="submit" value="Cadastrar">
                 <input type="reset" value="Cancelar">
             </form>
         </fieldset>
 
-        <fieldset>
+        <fieldset id="login" class="show">
             <legend>Login</legend>
             <form id="form-login" autocomplete="on">
-                <input type="text" name="username" id="username">
-                <input type="password" name="password" id="password">
-                <input type="submit" value="Ok">
-                <input type="reset" value="Cancelar">
+                <input type="text" name="username" id="username" placeholder="Username">
+                <input type="password" name="password" id="password" placeholder="Password">
+                <input type="submit" value="Login">
             </form>
+
+            <a href="" id="cadastrese">Ainda não tem login? Cadastre-se!</a>
+        </fieldset>
+    </div>
+
+    <div id="home" class="no-show">
+        <fieldset id="homepage">
+            <legend>Meus Dados</legend>
+            <span id="me"></span>
         </fieldset>
 
-        <fieldset>
-            <legend>Listar Usuários</legend>
-            <button id="btn-users">Lista Usuários</button>
-            <ul id="list-users"></ul>
-        </fieldset>
+        <div id="boards"></div>
+
+        <a href="#" id="sair">Sair</a>
     </div>
 
 </body>
