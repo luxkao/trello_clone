@@ -59,7 +59,7 @@ btnCadastrese.addEventListener("click", (e) => {
 btnSair.addEventListener("click", (e) =>{
   e.preventDefault();
 
-  localStorage.removeItem("token");
+  Token.removeToken();
   Show.toggle(telaHome);
   Show.toggle(telaLogin);
 })
