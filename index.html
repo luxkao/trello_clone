@@ -7,16 +7,16 @@
     <link rel="stylesheet" href="css/style.css">
     <title>Trelloso Client</title>
     <link rel="shortcut icon" href="img/icon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
     <script defer type="module" src="js/main.js"></script>
 </head>
 
 <body>  
-    <h1>Trelloso Client</h1>
-    
-    <div id="forms">
-        <fieldset id="signup" class="no-show">
-            <legend>Cadastrar Usuário</legend>
-            <form id="form-create-user" autocomplete="on">
+    <div id="forms" class="show">
+        <div id="signup" class="no-show">
+            <form id="form-create-user" autocomplete="off">
                 <input type="text" name="name" id="new-name" placeholder="Nome">
                 <input type="text" name="username" id="new-username" placeholder="Username">
                 <input type="password" name="password" id="new-password" placeholder="Password">
@@ -24,10 +24,9 @@
                 <input type="submit" value="Cadastrar">
                 <input type="reset" value="Cancelar">
             </form>
-        </fieldset>
+        </div>
 
-        <fieldset id="login" class="show">
-            <legend>Login</legend>
+        <div id="login" class="show">
             <form id="form-login" autocomplete="on">
                 <input type="text" name="username" id="username" placeholder="Username">
                 <input type="password" name="password" id="password" placeholder="Password">
@@ -35,18 +34,49 @@
             </form>
 
             <a href="" id="cadastrese">Ainda não tem login? Cadastre-se!</a>
-        </fieldset>
+        </div>
     </div>
 
     <div id="home" class="no-show">
-        <fieldset id="homepage">
-            <legend>Meus Dados</legend>
-            <span id="me"></span>
-        </fieldset>
+        <nav>
+            <div id="left">
+                <h1>Trelloso</h1> 
+                <button id="btn-create-board">Criar</button>
+            </div>
+            <div id="right">
+                <div id="user">
+                    <img src="" alt="" id="avatar">
+                    <div id="dropdown-menu" class="no-show">
+                            <h2>Conta</h2>
+                            <div id="me">
+                                <img src="" alt="" id="avatar-dropdown">
+                                <div id="info">
+                                    <h3 id="name-dropdown"></h3>
+                                    <h4 id="username-dropdown"></h4>
+                                </div>
+                            </div>
+                            <a href="#" id="sair">Sair</a>
+                    </div>
+                    
+                </div>
+            </div>
+        </nav>
 
-        <div id="boards"></div>
+        <aside>
+        </aside>
+        
+        <main>
+            <ul id="boards"></ul>
+        </main>
+        
 
-        <a href="#" id="sair">Sair</a>
+        <dialog id="create-board"> 
+            <form id="form-create-board" autocomplete="off">
+                <input type="text" name="board-name" id="new-board-name" placeholder="Nome do quadro">
+                <input type="text" name="board-color" id="new-board-color" placeholder="Cor do quadro">
+                <input type="submit" value="Criar Quadro">
+            </form>
+        </dialog>
     </div>
 
 </body>

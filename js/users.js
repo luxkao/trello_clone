@@ -12,7 +12,10 @@ async function getAll() {
 
 async function create(name, username, password, avatar) {
     const user = {
-        name: name, username: username, password: password, avatar_url: avatar
+        name: name,
+        username: username,
+        password: password,
+        avatar_url: avatar
     }
     const newUser = await Fetch.request('/users', user, 'POST');
     return newUser;
