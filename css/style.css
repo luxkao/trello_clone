@@ -51,6 +51,7 @@ aside {
   grid-area: sidebar;
   padding: 20px;
   overflow-y: auto;
+  opacity: 80%;
 }
 main {
   grid-area: main;
@@ -367,15 +368,29 @@ dialog > form > select {
   overflow-y: auto;
 }
 
-#board-content li ul li {
+.card {
   /* card individual */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
   margin-bottom: 10px;
   padding: 10px;
   padding-left: 4px;
   border-radius: 8px;
   background-color: #22272b;
   box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
+  cursor: pointer;
+  border: transparent 2px solid;
 }
+
+.card:hover {
+  border-color: #83b7ff;
+}
+.card:hover .edit-card-btn{
+  opacity: 1;
+}
+
 #board-content li ul li h2{
   font-weight: normal;
 }
@@ -409,6 +424,7 @@ dialog > form > select {
   background-color: #282e33;
   font-size: 10px;
   gap: 1.5em;
+  z-index: 3;
 }
 
 #me {
@@ -433,7 +449,7 @@ dialog > form > select {
   height: 60px;
 }
 
-.fa-star {
+.favorite-icon {
   position: absolute;
   bottom: 15px;
   right: 15px;
@@ -461,4 +477,57 @@ dialog > form > select {
   height: 75px;
   font-family: inherit;
   font-size: 12px;
+}
+
+#sort-favorite {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+  background-color: #1c2b41;
+  border: none;
+  color: #579dff;
+  border-radius: 8px;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+}
+
+#sort-favorite:hover {
+  background-color: rgb(31, 65, 116)
+}
+
+#board-name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  color: #fff;
+}
+
+#edit-board-btn {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.edit-card-btn {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.1s ease;
+}
+
+aside > form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  margin-top: 2em;
 }

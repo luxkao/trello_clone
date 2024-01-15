@@ -103,7 +103,7 @@ trelloso_<minha_matricula_sem_traco_e_minusculo>
         - Com etiquetas (tags), indicações de membros, indicações de comentários e data se tiver
     - Criar um novo Cartão a partir da Lista
     - Editar um cartão 
-        - Adicionando/removendo tags e comentários e data)	
+        - Adicionando/removendo tags e comentários e data
     - Excluir um cartão	
     - Mover o cartão de uma lista para outra
         - Plus: Usar **drag and drop** para isso!

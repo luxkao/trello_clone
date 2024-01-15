@@ -20,6 +20,14 @@ async function updateFavorite(board_id, favorito) {
     return updatedBoard;
 }
 
+async function updateBoard(board_id, name, color) {
+    const board = {name: name,
+        color: color
+    };
+    const updatedBoard = await Fetch.request(`/boards/${board_id}`, board, 'PATCH');
+    return updatedBoard;
+}
+
 async function getLists(board_id) {
     const lists = await Fetch.request(`/boards/${board_id}/lists`);
     return lists;
@@ -39,6 +47,8 @@ async function createList(board_id, name, position) {
     return newList;
 }
 
+
+
 async function createCard(list_id, name, position) {
     const card = {name: name,
         date: new Date().toISOString(),
@@ -49,4 +59,12 @@ async function createCard(list_id, name, position) {
     return newCard;
 }
 
-export default {getAll, create, updateFavorite, getLists, getCards, createList, createCard};
+async function moveCard(card_id, list_id, position) {
+    const card = {list_id: list_id,
+        date: new Date().toISOString(),
+        position: position
+    };
+    const newCard = await Fetch.request(`/cards/${card_id}`, card, 'PATCH');
+    return newCard;
+}
+export default {getAll, create, updateFavorite, updateBoard, getLists, getCards, createList, createCard, moveCard};
