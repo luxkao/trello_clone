@@ -275,15 +275,55 @@ async function loadCards(listId) {
     for (let card of cards) {
       const li = document.createElement('li');
       li.innerHTML = `
-      <h2>${card.name}</h2>
-      <button class="edit-card-btn"><i class="fa-solid fa-pen"></i></button>
+      <div class="card-content-wrapper">
+        <h2>${card.name}</h2>
+        <button class="edit-card-btn"><i class="fa-solid fa-pen"></i></button>
+      </div>
       `;
+
       li.dataset.id = card.id;
       li.setAttribute('draggable', true);
       li.classList.add('card');
       li.addEventListener('dragstart', handleDragStart, false);
       li.addEventListener('dragend', handleDragEnd, false);
       ul.appendChild(li);
+
+      let editCardBtn = li.querySelector('.edit-card-btn');
+      let contentWrapper = li.querySelector('.card-content-wrapper');
+
+      editCardBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        const form = document.createElement('form');
+        form.innerHTML = `
+        <textarea id="edit-card-textarea" placeholder="${card.name}"></textarea>
+        <span>
+          <button class="add-btn" type="submit">Salvar</button>
+          <button class="cancel-btn" type="reset"><i class="fa-solid fa-times"></i></button>
+        </span>
+        `;
+        contentWrapper.style.display = 'none';
+
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault(); 
+
+          const cardTextarea = document.getElementById('edit-card-textarea');
+          const cardTitle = cardTextarea.value;
+
+          Board.updateCard(card.id, cardTitle).then(() => {
+            loadLists(boardContent.dataset.boardId);
+          });
+        });
+
+        form.addEventListener('reset', (e) => {
+          e.preventDefault();
+
+          form.style.display = 'none';
+          contentWrapper.style.display = 'flex';
+        });
+        
+        li.appendChild(form);
+      });
     }
   } catch (error) {
     console.error(error.message);
@@ -447,8 +487,6 @@ function populateAside(boardName) {
       if (newboardName === '') {
         newboardName = boardName;
       }
-
-      console.log(newColor);
 
       Board.updateBoard(boardId, newboardName, newColor).then(() => {
         clearAside();

@@ -467,7 +467,7 @@ dialog > form > select {
   background-color: #383c44;
 }
 
-#card-textarea {
+textarea {
   background-color: #22272b;
   color: #9fadbc;
   border: 1px solid #384149;
@@ -516,6 +516,13 @@ dialog > form > select {
   cursor: pointer;
 }
 
+.card form{
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  width: 100%;
+}
+
 .edit-card-btn {
   background-color: transparent;
   border: none;
@@ -530,4 +537,11 @@ aside > form {
   flex-direction: column;
   gap: 1em;
   margin-top: 2em;
+}
+
+.card-content-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
