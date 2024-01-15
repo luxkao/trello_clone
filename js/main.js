@@ -12,6 +12,7 @@ let divLogin = document.getElementById("login");
 let divCadastro = document.getElementById("signup");
 let asideDiv = document.getElementById("aside");
 let mainDiv = document.getElementById("main");
+let boardContentWrapper = document.getElementById("board-content-wrapper");
 let btnCadastrese = document.getElementById("cadastrese");
 let btnSair = document.getElementById("sair");
 let btnTrelloso = document.getElementById("trelloso");
@@ -79,6 +80,7 @@ btnTrelloso.addEventListener("click", (e) =>{
     Show.applyBackgroundColor(defaultColor, [asideDiv, mainDiv]);
     Show.toggle(boardsList);
     Show.toggle(boardContent);
+    Show.toggle(boardContentWrapper);
   }
 });
 
@@ -199,6 +201,7 @@ function addClickEventToBoards() {
 
       Show.toggle(boardsList);
       Show.toggle(boardContent);
+      Show.toggle(boardContentWrapper);
     });
   });
 }
