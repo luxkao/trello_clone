@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/e50904dca0.js" crossorigin="anonymous"></script>
     <script defer type="module" src="js/main.js"></script>
 </head>
 
@@ -72,8 +73,16 @@
 
         <dialog id="create-board"> 
             <form id="form-create-board" autocomplete="off">
-                <input type="text" name="board-name" id="new-board-name" placeholder="Nome do quadro">
-                <input type="text" name="board-color" id="new-board-color" placeholder="Cor do quadro">
+                <input type="text" name="board-name" id="new-board-name" placeholder="Nome do quadro" required>
+                <select name="board-color" id="new-board-color" required>
+                    <option value="">Escolha uma cor</option>
+                    <option value="#228CD5">Azul Claro</option>
+                    <option value="#0B50AF">Azul Escuro</option>
+                    <option value="#674284">Roxo</option>
+                    <option value="#A869C1">Lilás</option>
+                    <option value="#EF763A">Laranja</option>
+                    <option value="#F488A6">Rosa</option>
+                </select>
                 <input type="submit" id="create-board" value="Criar Quadro">
             </form>
         </dialog>

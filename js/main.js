@@ -18,6 +18,7 @@ let boardsList = document.getElementById("boards");
 let userIcon = document.getElementById("avatar");
 let userDropDownMenu = document.getElementById("dropdown-menu");
 
+
 formLogin.addEventListener("submit", (event) => {
   event.preventDefault();
 
@@ -84,8 +85,6 @@ formCreateBoard.addEventListener("submit", (e) =>{
   const color = document.getElementById("new-board-color").value;
 
   Board.create(name, color).then(board => {
-    console.log(`board criado! nome:${board.name} cor:${board.color} favorito:${board.favorite}`);
-
     refreshBoards();
     modalCreateBoard.close();
   }).catch(error => {
@@ -123,13 +122,39 @@ function refreshBoards() {
   Board.getAll().then(boards => {
     for (let board of boards) {
       const li = document.createElement('li'); 
-      const name = document.createElement('h2');
-      name.innerHTML = board.name;
-      li.appendChild(name);
+      li.innerHTML = `
+      <h2> ${board.name} </h2>
+      <i class="${board.favorito ? 'fa-solid' : 'fa-regular'} fa-star"></i>
+      `;
+      li.style.backgroundColor = board.color;
+      li.dataset.id = board.id;
+      li.dataset.favorite = board.favorito;
       boardsList.appendChild(li);
     }
+    addClickEventToFavorites();
   }).catch(error => {
     console.error(error.message);
   });
 }
 
+function addClickEventToFavorites(){
+  const favoriteIcons = document.querySelectorAll(".fa-star");
+
+  favoriteIcons.forEach( (icon) => {
+    icon.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      icon.classList.toggle("fa-regular");
+      icon.classList.toggle("fa-solid");
+
+      const boardId = icon.parentElement.dataset.id;
+      let isFavorite = icon.parentElement.dataset.favorite === 'true';;
+      
+      Board.updateFavorite(boardId, !isFavorite).then(board => {
+        icon.parentElement.dataset.favorite = board.favorito ? 'true' : 'false';
+      });
+      
+    });
+  });  
+}

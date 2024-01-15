@@ -5,13 +5,18 @@ async function getAll() {
     return boards;
 }
 
-async function create(name, color, favorite) {
+async function create(name, color, favorito) {
     const board = {name: name,
         color: color,
-        favorite: favorite};
+        favorito: favorito};
 
     const newBoard = await Fetch.request('/boards', board, 'POST');
     return newBoard;
 }
 
-export default {getAll, create};
+async function updateFavorite(board_id, favorito) {
+    const board = {favorito: favorito };
+    const updatedBoard = await Fetch.request(`/boards/${board_id}`, board, 'PATCH');
+    return updatedBoard;
+}
+export default {getAll, create, updateFavorite};
