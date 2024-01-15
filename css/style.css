@@ -9,12 +9,19 @@
   color: #674284;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+  background-color: transparent;
+}
+
 body {
   font: 1.5rem 'Noto Sans', sans-serif;
   line-height: 1.5;
   background-color: #1d2125;
   color: #9fadbc;
 }
+
 #home{
   display: grid;
   grid-template-areas: 
@@ -25,20 +32,20 @@ body {
   grid-template-columns: 1fr 3fr 3fr;
   height: 100vh;
   margin: 0;
-  grid-gap: 1px;
 }
 nav {
   display: flex; 
   justify-content: space-between;
   grid-area: header;
-  padding: 10px;
-  padding-left: 40px;
-  outline: 2px #32383d solid;
+  padding: 5px;
+  padding-left: 30px;
+  border-bottom: 2px #32383d solid;
 }
 nav > div {
   display: flex;
   align-items: center;
   gap: 3em;
+  overflow: hidden;
 }
 aside {
   grid-area: sidebar;
@@ -158,7 +165,6 @@ dialog {
   background-color: #282e33;
   border: 1px solid #282e33;;
   border-radius: 5px;
-
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -206,11 +212,13 @@ dialog > form > select {
   justify-content: space-between;
   transition: filter 0.3s ease;
   overflow: hidden;
+  cursor: pointer;
 }
 
 #boards li:hover {
   filter: brightness(80%);
 }
+
 
 #boards li:hover .fa-star {
   opacity: 1;
@@ -225,6 +233,53 @@ dialog > form > select {
 #boards li h2 {
   font-size: 1.5rem;
   margin-bottom: 10px; 
+}
+
+#board-content {
+  display: flex;
+  gap: 12px;
+  padding: 20px;
+  color: #b6c2cf;
+  align-items: flex-start;
+  font-size: 10px;
+  font-weight: 400;
+}
+
+#board-content > li {
+  /* listas individuais*/
+  position: relative;
+  background-color: #101204;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 250px; 
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#board-content > li h2 {
+  padding-left: 15px;
+}
+
+#board-content li ul {
+  /* card container */
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#board-content li ul li {
+  /* card individual */
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #22272b;
+  box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
+}
+#board-content li ul li h2{
+  font-weight: normal;
 }
 
 #btn-create-board {
@@ -283,4 +338,12 @@ dialog > form > select {
   transform: translateX(100%);
   transition: opacity 0.3s ease, transform 0.175s ease;
   cursor: pointer;
+}
+
+#trelloso{
+  padding: 0.3em;
+  border-radius: 8px;
+}
+#trelloso:hover {
+  background-color: #383c44;
 }

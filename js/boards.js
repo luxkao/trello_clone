@@ -19,4 +19,15 @@ async function updateFavorite(board_id, favorito) {
     const updatedBoard = await Fetch.request(`/boards/${board_id}`, board, 'PATCH');
     return updatedBoard;
 }
-export default {getAll, create, updateFavorite};
+
+async function getLists(board_id) {
+    const lists = await Fetch.request(`/boards/${board_id}/lists`);
+    return lists;
+}
+
+async function getCards(list_id) {
+    const cards = await Fetch.request(`/lists/${list_id}/cards`);
+    return cards;
+}
+
+export default {getAll, create, updateFavorite, getLists, getCards};

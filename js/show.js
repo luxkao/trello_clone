@@ -10,4 +10,10 @@ function toggle(component) {
     }
 }
 
-export default {toggle};
+function applyBackgroundColor(color, components){
+    components.forEach(component => {
+        component.style.backgroundColor = color;
+    });
+}
+
+export default {toggle, applyBackgroundColor};
