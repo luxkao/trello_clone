@@ -250,8 +250,8 @@ dialog > form > select {
   font-size: 10px;
   font-weight: 400;
   flex-wrap: nowrap; 
-  max-height: 600px; /* Adjust this value according to your needs */
-  overflow-y: auto;
+  height: 100%;
+  overflow-x: auto;
 }
 
 #board-content > li {
