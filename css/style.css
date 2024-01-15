@@ -54,7 +54,6 @@ aside {
 }
 main {
   grid-area: main;
-  padding: 20px;
   overflow-y: auto;
 }
 h1 {
@@ -93,6 +92,7 @@ h1 {
   color: white;
   cursor: pointer; 
 }
+
 #forms form button:hover {
   background-color: #7986cb;
 }
@@ -177,6 +177,7 @@ dialog > form {
   flex-direction: column;
   gap: 0.75em;
 }
+
 dialog > form > input {
   background-color: #22272b;
   color: #9fadbc;
@@ -235,6 +236,11 @@ dialog > form > select {
   margin-bottom: 10px; 
 }
 
+#board-content-wrapper {
+  overflow-x: auto;
+  height: 100%; 
+}
+
 #board-content {
   display: flex;
   gap: 12px;
@@ -243,6 +249,9 @@ dialog > form > select {
   align-items: flex-start;
   font-size: 10px;
   font-weight: 400;
+  flex-wrap: nowrap; 
+  max-height: 600px; /* Adjust this value according to your needs */
+  overflow-y: auto;
 }
 
 #board-content > li {
@@ -252,11 +261,95 @@ dialog > form > select {
   border-radius: 12px;
   padding: 15px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 250px; 
+  width: 280px; 
   min-height: 100px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  flex-shrink: 0; 
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+#board-content > li > button {
+  background-color: transparent;
+  color: #9fadbc;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+#board-content > li > form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#board-content > li > button:hover {
+  background-color: #a6c5e229;
+}
+
+#board-content > button {
+  display: flex;
+  gap: 10px;
+  padding: 15px;
+  border-radius: 12px;
+  background-color: #ffffff3d;
+  color: #fff;
+  width: 280px; 
+  cursor: pointer;
+  border: none;
+  outline: none;
+  flex-shrink: 0; 
+}
+
+#board-content > form {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: #101204;
+  border-radius: 12px;
+  padding: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 280px; 
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+} 
+
+#list-title-input {
+  background-color: #101204;
+  color: #b6c2cf;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.add-btn {
+  background-color: #579dff;
+  color: #1d2125;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.add-btn:hover {
+  background-color: #83b7ff;
+}
+
+.cancel-btn {
+  background-color: transparent;
+  color: #b6c2cf;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.cancel-btn:hover {
+  background-color: #a6c5e229;
 }
 
 #board-content > li h2 {
@@ -268,18 +361,28 @@ dialog > form > select {
   margin: 0;
   padding: 0;
   list-style: none;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
 }
 
 #board-content li ul li {
   /* card individual */
   margin-bottom: 10px;
   padding: 10px;
+  padding-left: 4px;
   border-radius: 8px;
   background-color: #22272b;
   box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
 }
 #board-content li ul li h2{
   font-weight: normal;
+}
+
+#board-content li form {
+  display: flex;
+  flex-direction: column;
 }
 
 #btn-create-board {
@@ -346,4 +449,16 @@ dialog > form > select {
 }
 #trelloso:hover {
   background-color: #383c44;
+}
+
+#card-textarea {
+  background-color: #22272b;
+  color: #9fadbc;
+  border: 1px solid #384149;
+  padding: 5px;
+  border-radius: 8px;
+  resize: none;
+  height: 75px;
+  font-family: inherit;
+  font-size: 12px;
 }

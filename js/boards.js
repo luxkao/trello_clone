@@ -30,4 +30,23 @@ async function getCards(list_id) {
     return cards;
 }
 
-export default {getAll, create, updateFavorite, getLists, getCards};
+async function createList(board_id, name, position) {
+    const list = {name: name,
+        board_id: board_id,
+        position: position
+    };
+    const newList = await Fetch.request(`/lists`, list, 'POST');
+    return newList;
+}
+
+async function createCard(list_id, name, position) {
+    const card = {name: name,
+        date: new Date().toISOString(),
+        list_id: list_id,
+        position: position
+    };
+    const newCard = await Fetch.request(`/cards`, card, 'POST');
+    return newCard;
+}
+
+export default {getAll, create, updateFavorite, getLists, getCards, createList, createCard};

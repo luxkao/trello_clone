@@ -11,7 +11,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/e50904dca0.js" crossorigin="anonymous"></script>
-    <script defer type="module" src="js/main.js"></script>
 </head>
 
 <body>  
@@ -68,7 +67,10 @@
         
         <main id="main">
             <ul id="boards" class="show"></ul>
-            <div id="board-content" class="no-show"></div>
+            <div id="board-content-wrapper">
+                <div id="board-content" class="no-show"></div>
+            </div>
+            
         </main>
         
 
@@ -90,5 +92,5 @@
     </div>
 
 </body>
-
+<script defer type="module" src="js/main.js"></script>
 </html>
