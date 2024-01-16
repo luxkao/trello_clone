@@ -569,6 +569,92 @@ aside > form {
   padding: 10px;
   border-radius: 8px;
 }
+
 .delete-card-icon:hover {
   background-color: #a6c5e229;
+}
+
+.list-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1em;
+  margin-bottom: 1em;
+}
+
+.list-header-wrapper > form {
+  gap: 1em;
+}
+
+.card-content-div {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #323940;
+  height: 70vh;
+  width: 40vw;
+  padding: 30px;
+  border-radius: 10px;
+  z-index: 1000;
+  gap: 1em;
+}
+
+.card-content-div h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.card-content-div p {
+  font-size: 12px;
+  margin-bottom: 10px;
+  padding-left: 3em;
+}
+
+.card-content-div h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.card-content-div ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.card-content-div ul li {
+  margin-bottom: 5px;
+  padding-left: 2em;
+}
+
+.card-content-div button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+}
+
+.card-content-div button:hover {
+  background-color: #6e7581;
+  color: white;
+}
+
+.card-content-div .tag {
+  display: inline-block;
+  padding: 5px 10px;
+  margin-right: 5px;
+  border-radius: 3px;
+  color: #1f1f1f;
+  font-size: 14px;
+  cursor: pointer;
 }

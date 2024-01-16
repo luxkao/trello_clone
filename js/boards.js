@@ -52,6 +52,22 @@ async function createList(board_id, name, position) {
     return newList;
 }
 
+async function updateList(list_id, name) {
+    const list = {name: name};
+    const updatedList = await Fetch.request(`/lists/${list_id}`, list, 'PATCH');
+    return updatedList;
+}
+
+async function deleteList(list_id) {
+    const deletedList = await Fetch.request(`/lists/${list_id}`, {}, 'DELETE');
+    return deletedList;
+}
+
+async function getCard(card_id) {
+    const card = await Fetch.request(`/cards/${card_id}`);
+    return card;
+}
+
 async function createCard(list_id, name, position) {
     const card = {name: name,
         date: new Date().toISOString(),
@@ -82,4 +98,18 @@ async function deleteCard(card_id) {
     const deletedCard = await Fetch.request(`/cards/${card_id}`, {}, 'DELETE');
     return deletedCard;
 }
-export default {getAll, create, updateFavorite, updateBoard, deleteBoard, getLists, getCards, createList, createCard, moveCard, updateCard, deleteCard};
+export default {getAll,
+    create,
+    updateFavorite,
+    updateBoard,
+    deleteBoard,
+    getLists,
+    getCards,
+    createList,
+    updateList,
+    deleteList,
+    getCard,
+    createCard,
+    moveCard,
+    updateCard,
+    deleteCard};

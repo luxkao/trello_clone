@@ -250,8 +250,64 @@ async function loadLists(boardId) {
     for (let list of lists) {
       const li = document.createElement('li');
       const div = document.createElement('div');
-      li.innerHTML = `<h2>${list.name}</h2>`;
+      li.innerHTML = `
+      <div class="list-header-wrapper">
+        <span class="list-header show">
+          <h2>${list.name}</h2>
+          <i class="edit-icon fa-solid fa-pen"></i>
+        </span>
+      </div class="list-header-wrapper">
+      `;
+
       li.dataset.id = list.id;
+      let editIcon = li.querySelector('.edit-icon');
+      let listHeader = li.querySelector('.list-header');
+      let listHeaderWrapper = li.querySelector('.list-header-wrapper');
+
+      editIcon.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const form = document.createElement('form');
+        form.innerHTML = `
+        <input id="list-title-input" type="text" placeholder="${list.name}" required>
+        <span>
+          <button class="add-btn" type="submit">Salvar</button>
+          <button class="cancel-btn" type="reset"><i class="fa-solid fa-times"></i></button>
+          <i class="delete-list-icon fa-solid fa-trash"></i>
+        </span>
+        `;
+        Show.toggle([listHeader]); 
+
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault(); 
+
+          const listTitleInput = document.getElementById('list-title-input');
+          const listTitle = listTitleInput.value;
+
+          Board.updateList(list.id, listTitle).then(() => {
+            loadLists(boardId);
+          });
+        });
+
+        form.addEventListener('reset', (e) => {
+          e.preventDefault();
+
+          form.style.display = 'none';
+          Show.toggle([listHeader]);
+        });
+
+        const deleteListbtn = form.querySelector('.delete-list-icon');
+        deleteListbtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+
+          Board.deleteList(list.id).then(() => {
+            loadLists(boardId);
+          });
+        });
+        listHeaderWrapper.appendChild(form);
+      });
       li.addEventListener('dragover', handleDragOver, false);
       li.addEventListener('drop', handleDrop, false);
       const cardsElement = await loadCards(list.id);
@@ -309,8 +365,45 @@ async function loadCards(listId) {
       let editCardBtn = li.querySelector('.edit-card-btn');
       let contentWrapper = li.querySelector('.card-content-wrapper');
 
+      li.addEventListener('click', async (e) => {
+        let target = e.target;
+          while (target != li) {
+            if (target == editCardBtn || target.tagName.toLowerCase() === 'textarea' || target.type === 'submit' || target.type === 'reset') {
+              return;
+            }
+            target = target.parentNode;
+          }
+
+          const cardData = await Board.getCard(card.id);
+
+          const div = document.createElement('div');
+          div.classList.add('card-content-div');
+
+          const exitButton = document.createElement('button');
+          exitButton.innerHTML = `
+              <i class="fa-solid fa-times"></i>
+              `;
+          exitButton.addEventListener('click', () => {
+            document.body.removeChild(div);
+          });
+
+          div.innerHTML = `
+              <h2>${cardData.name}</h2>
+              <p>Criado em: ${new Date(cardData.date).toLocaleString()}</p>
+              <h3>Comments</h3>
+              <ul>${cardData.cardcomments ? cardData.cardcomments.map(comment => `<li>${comment.comment}</li>`).join('') : ''}</ul>
+              <h3>Members</h3>
+              <ul>${cardData.cardmembers ? cardData.cardmembers.map(member => `<li>${member.member_id}</li>`).join('') : ''}</ul>
+              <h3>Tags</h3>
+              <ul>${cardData.tags ? cardData.tags.map(tag => `<span class="tag" style="background-color: ${tag.color};">${tag.name}</span>`).join('') : ''}</ul>
+            `;
+
+          div.appendChild(exitButton);
+          document.body.appendChild(div);
+      });
       editCardBtn.addEventListener('click', (e) => {
         e.preventDefault();
+        e.stopPropagation();
 
         const form = document.createElement('form');
         form.innerHTML = `
@@ -325,6 +418,7 @@ async function loadCards(listId) {
         
         form.addEventListener('submit', async (e) => {
           e.preventDefault(); 
+          e.stopPropagation();
 
           const cardTextarea = document.getElementById('edit-card-textarea');
           const cardTitle = cardTextarea.value;
@@ -336,6 +430,7 @@ async function loadCards(listId) {
 
         form.addEventListener('reset', (e) => {
           e.preventDefault();
+          e.stopPropagation();
 
           form.style.display = 'none';
           contentWrapper.style.display = 'flex';
@@ -372,6 +467,7 @@ function showCreateListForm() {
   `;
   form.addEventListener('submit', (e) => {
     e.preventDefault(); 
+    e.stopPropagation();
 
     const listTitleInput = document.getElementById('list-title-input');
     const listTitle = listTitleInput.value;
@@ -385,6 +481,7 @@ function showCreateListForm() {
 
   form.addEventListener('reset', (e) => {
     e.preventDefault();
+    e.stopPropagation();
 
     form.style.display = 'none';
     createNewListBtn.style.display = 'flex';
