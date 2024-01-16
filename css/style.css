@@ -561,16 +561,16 @@ aside > form {
   transition: opacity 0.3s ease, transform 0.175s ease;
 }
 
-.delete-card-icon {
+span > .fa-trash{
   background-color: transparent;
   border: none;
   color: #f44336;
   cursor: pointer;
-  padding: 10px;
+  padding: 1em;
   border-radius: 8px;
 }
 
-.delete-card-icon:hover {
+span > .fa-trash:hover {
   background-color: #a6c5e229;
 }
 
