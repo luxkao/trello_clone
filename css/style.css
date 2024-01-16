@@ -38,7 +38,7 @@ nav {
   justify-content: space-between;
   grid-area: header;
   padding: 5px;
-  padding-left: 30px;
+  padding-left: 42px; 
   border-bottom: 2px #32383d solid;
 }
 nav > div {
@@ -223,6 +223,11 @@ dialog > form > select {
 
 
 #boards li:hover .fa-star {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+#boards li:hover .delete-icon {
   opacity: 1;
   transform: translateX(0);
 }
@@ -544,4 +549,26 @@ aside > form {
   justify-content: space-between;
   align-items: center;
   width: 100%;
+}
+
+.delete-icon {
+  background-color: transparent;
+  border: none;
+  color: #f44336;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: opacity 0.3s ease, transform 0.175s ease;
+}
+
+.delete-card-icon {
+  background-color: transparent;
+  border: none;
+  color: #f44336;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 8px;
+}
+.delete-card-icon:hover {
+  background-color: #a6c5e229;
 }

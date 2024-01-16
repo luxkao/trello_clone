@@ -52,9 +52,7 @@ formCreateUser.addEventListener("submit", (event) => {
   const password = document.getElementById("new-password").value;
   const avatar = document.getElementById("new-avatar").value;
   console.log(name, username, password, avatar);
-  User.create(name, username, password, avatar).then(user=>{
-    console.log(`usuário criado! username:${user.username} senha:${user.password}`);
-
+  User.create(name, username, password, avatar).then((user)=>{
     Show.toggle([divCadastro, divLogin]);
   }).catch(error => {
     console.log(error.message);
@@ -160,6 +158,7 @@ function loadBoards() {
       const li = document.createElement('li'); 
       li.innerHTML = `
       <h2> ${board.name} </h2>
+      <i class="delete-icon fa-solid fa-trash"></i>
       <i class="favorite-icon ${board.favorito ? 'fa-solid' : 'fa-regular'} fa-star"></i>
       `;
       li.style.backgroundColor = board.color;
@@ -171,6 +170,7 @@ function loadBoards() {
       boardsList.appendChild(li);
     }
     addClickEventToFavorites();
+    addClickEventToDelete();
     addClickEventToBoards();
   }).catch(error => {
     console.error(error.message);
@@ -197,6 +197,24 @@ function addClickEventToFavorites(){
       
     });
   });  
+}
+
+function addClickEventToDelete(){
+  const deleteIcons = document.querySelectorAll(".delete-icon");
+
+  deleteIcons.forEach( (icon) => {
+    icon.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const boardId = icon.parentElement.dataset.id;
+
+
+      Board.deleteBoard(boardId).then(() => {
+        loadBoards();
+      });
+    });
+  });
 }
 
 function addClickEventToBoards() {
@@ -296,14 +314,15 @@ async function loadCards(listId) {
 
         const form = document.createElement('form');
         form.innerHTML = `
-        <textarea id="edit-card-textarea" placeholder="${card.name}"></textarea>
+        <textarea id="edit-card-textarea" placeholder="${card.name}" required></textarea>
         <span>
           <button class="add-btn" type="submit">Salvar</button>
           <button class="cancel-btn" type="reset"><i class="fa-solid fa-times"></i></button>
+          <i class="delete-card-icon fa-solid fa-trash"></i>
         </span>
         `;
         contentWrapper.style.display = 'none';
-
+        
         form.addEventListener('submit', async (e) => {
           e.preventDefault(); 
 
@@ -321,7 +340,16 @@ async function loadCards(listId) {
           form.style.display = 'none';
           contentWrapper.style.display = 'flex';
         });
-        
+
+        const deleteCardbtn = form.querySelector('.delete-card-icon');
+        deleteCardbtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+
+          Board.deleteCard(card.id).then(() => {
+            loadLists(boardContent.dataset.boardId);
+          });
+        });
         li.appendChild(form);
       });
     }
@@ -370,7 +398,7 @@ function showCreateCardForm() {
 
   const form = document.createElement('form');
   form.innerHTML = `
-  <textarea id="card-textarea" placeholder="Insira um título para este cartão..."></textarea>
+  <textarea id="card-textarea" placeholder="Insira um título para este cartão..." required></textarea>
   <span>
     <button class="add-btn" type="submit">Adicionar cartão</button>
     <button class="cancel-btn" type="reset"><i class="fa-solid fa-times"></i></button>
@@ -456,6 +484,7 @@ function populateAside(boardName) {
     const boardColor = boardContent.dataset.boardColor;
 
     const form = document.createElement('form');
+    form.id = 'edit-board-form';
     form.innerHTML = `
     <input id="board-name-input" type="text" placeholder="Insira um novo nome">
     <select name="board-color" id="new-board-color-option">
@@ -492,7 +521,8 @@ function populateAside(boardName) {
         clearAside();
         populateAside(newboardName);
         Show.applyBackgroundColor(newColor, [asideDiv, mainDiv])
-
+        boardContent.dataset.boardName = newboardName;
+        boardContent.dataset.boardColor = newColor;
         form.innerHTML = '';
         form.style.display = 'none';
       });
@@ -510,8 +540,10 @@ function populateAside(boardName) {
 }
 
 function clearAside() {
-  const boardName = document.getElementById('board-name');
-  if (boardName) {
-    asideDiv.removeChild(boardName);
+  for(let i = asideDiv.children.length - 1; i >= 0; i--){
+    let child = asideDiv.children[i];
+    if(child !== btnSortFavorite){
+        asideDiv.removeChild(child);
+    }
   }
 }

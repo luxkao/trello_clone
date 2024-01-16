@@ -28,6 +28,11 @@ async function updateBoard(board_id, name, color) {
     return updatedBoard;
 }
 
+async function deleteBoard(board_id) {
+    const deletedBoard = await Fetch.request(`/boards/${board_id}`, {}, 'DELETE');
+    return deletedBoard;
+}   
+
 async function getLists(board_id) {
     const lists = await Fetch.request(`/boards/${board_id}/lists`);
     return lists;
@@ -72,4 +77,9 @@ async function updateCard(card_id, name) {
     const updatedCard = await Fetch.request(`/cards/${card_id}`, card, 'PATCH');
     return updatedCard;
 }
-export default {getAll, create, updateFavorite, updateBoard, getLists, getCards, createList, createCard, moveCard, updateCard};
+
+async function deleteCard(card_id) {
+    const deletedCard = await Fetch.request(`/cards/${card_id}`, {}, 'DELETE');
+    return deletedCard;
+}
+export default {getAll, create, updateFavorite, updateBoard, deleteBoard, getLists, getCards, createList, createCard, moveCard, updateCard, deleteCard};
